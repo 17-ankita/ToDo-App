@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app">
+    <div class="card">
+        <div class="header">
+            <span class="badge">Daily Planner</span>
+            <h1>List Your Schedule</h1>
+            <p>Add your tasks and keep your day organized.</p>
+        </div>
+
+        <form action="/add" method="post" class="task-form">
+            <input type="text" name="task" placeholder="Enter a new task..." required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <div class="task-section">
+            <h2>Your Tasks</h2>
+
+            {% if tasks %}
+                <ul>
+                    {% for task in tasks %}
+                    <li>
+                        <span>{{ task.strip() }}</span>
+                        <a href="/delete/{{ loop.index0 }}" class="delete-btn">Delete</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="empty">
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task above.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
