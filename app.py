@@ -3,12 +3,16 @@ import os
 
 app = Flask(__name__)
 
-TASK_FILE = "tasks.txt"
+TASK_FILE = "/tmp/tasks.txt"
+
+def ensure_task_file():
+    if not os.path.exists(TASK_FILE):
+        with open(TASK_FILE, "w") as f:
+            f.write("")
 
 @app.route("/")
 def home():
-    if not os.path.exists(TASK_FILE):
-        open(TASK_FILE, "w").close()
+    ensure_task_file()
 
     with open(TASK_FILE, "r") as f:
         tasks = f.readlines()
@@ -17,6 +21,8 @@ def home():
 
 @app.route("/add", methods=["POST"])
 def add():
+    ensure_task_file()
+
     task = request.form.get("task")
 
     if task:
@@ -27,6 +33,8 @@ def add():
 
 @app.route("/delete/<int:id>")
 def delete(id):
+    ensure_task_file()
+
     with open(TASK_FILE, "r") as f:
         tasks = f.readlines()
 
