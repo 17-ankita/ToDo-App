@@ -27,7 +27,6 @@ https://to-do-app-git-main-17-ankitas-projects.vercel.app/
 
 ## Project Structure
 ToDo-App/
-│
 ├── app.py
 ├── requirements.txt
 ├── vercel.json
